@@ -1,5 +1,7 @@
 package main
 
+// App config
+
 type AppConfig struct {
 	Port     int
 	Address  string
@@ -13,13 +15,21 @@ type AuthConfig struct {
 }
 
 type WorkoutConfig struct {
-	Name       string
-	Excercises []ExerciseConfig
+	ID        string `yaml:"-"`
+	Name      string
+	Exercises []ExerciseConfig
 }
 
 type ExerciseConfig struct {
+	ID   string `yaml:"-"`
 	Name string
 	Reps int
 	Sets int
 	Rest int // in seconds
+}
+
+// Page data
+
+type PageData struct {
+	Workouts []WorkoutConfig
 }

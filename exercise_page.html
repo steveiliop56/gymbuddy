@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles.css" />
+        <title>Gymbuddy - {{ .Name }}</title>
+    </head>
+    <script>
+        // we are doing some fun, weird stuff here
+        var sets = {{ .Sets }};
+        var curSet = 0;
+        var remSets = sets - curSet;
+        const restTime = {{ .Rest }}; // in seconds
+
+        document.addEventListener("DOMContentLoaded", () => {
+          curSetText = document.getElementById("cur-set");
+          remSetsText = document.getElementById("rem-sets");
+          startSetBtn = document.getElementById("start-btn");
+          goBackBtn = document.getElementById("back-btn");
+
+          curSet.textContent = `Current Set: ${curSet}`;
+          remSets.textContent = `Remaining Sets: ${sets}`;
+
+          startSetBtn.addEventListener("click", () => {
+              curSet += 1;
+              remSets = sets - curSet;
+              curSetText.textContent = `Current Set: ${curSet}`;
+              remSetsText.textContent = `Remaining Sets: ${remSets}`;
+
+              startSetBtn.disabled = true;
+
+              if (curSet == sets) {
+                  startSetBtn.textContent = "Workout complete!";
+                  goBackBtn.style.display = "block";
+                  return;
+              }
+
+              var tmpRestTime = restTime;
+              const timer = setInterval(() => {
+                tmpRestTime -= 1;
+                if (tmpRestTime <= 0) {
+                  clearInterval(timer);
+                  startSetBtn.disabled = false;
+                  startSetBtn.textContent = "Start next set";
+                  return
+                }
+                startSetBtn.textContent = `Next set in ${tmpRestTime}s`;
+              }, 1000);
+          });
+        });
+    </script>
+    <body class="exercise-page">
+        <h1 class="header exercise-page">{{ .Name }}</h1>
+        <p class="subtitle exercise-page">Ready, set, go!</p>
+        <div class="separator exercise-page"></div>
+        <div class="ex-info">
+            <p>Sets: {{ .Sets }}</p>
+            <p>Repetitions: {{ .Reps }}</p>
+            <p>Rest Time: {{ .Rest }} seconds</p>
+        </div>
+        <div class="separator exercise-page"></div>
+        <div class="ex-track">
+            <p id="cur-set">Current set: 0</p>
+            <p id="rem-sets">Remaining sets: 0</p>
+            <button id="start-btn" class="base-button start-btn">Start</button>
+            <button
+                onclick="history.back()"
+                class="base-button back-btn"
+                id="back-btn"
+            >
+                Back
+            </button>
+        </div>
+    </body>
+</html>

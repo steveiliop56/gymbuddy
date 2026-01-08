@@ -1,0 +1,172 @@
+:root {
+    --color-white: #ffffff;
+    --color-gray: #363946;
+    --color-green: #2a9134;
+    --color-blue: #4392f1;
+    --color-red: #d84727;
+}
+
+body {
+    background-color: var(--color-white);
+    color: var(--color-gray);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 2rem;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
+    gap: 1.5rem;
+}
+
+body.exercise-page {
+    gap: 0;
+}
+
+@media only screen and (min-width: 600px) {
+    body {
+        padding: 0rem;
+    }
+}
+
+.header {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.header.exercise-page {
+    margin-bottom: 1.5rem;
+}
+
+.subtitle {
+    margin: 0;
+}
+
+.subtitle.exercise-page {
+    margin-bottom: 0.75rem;
+}
+
+.card {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    padding: 1rem 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.15));
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.card:hover {
+    opacity: 0.9;
+}
+
+.unstyled-link {
+    text-decoration: none;
+}
+
+.unstyled-link:focus {
+    text-decoration: none;
+}
+
+.separator {
+    height: 1px;
+    background-color: var(--color-gray);
+    border-radius: 0.25rem;
+    opacity: 0.25;
+    border: none;
+    margin: 0;
+}
+
+.separator.exercise-page {
+    margin-bottom: 0.75rem;
+}
+
+.ex-info {
+    margin-bottom: 0.75rem;
+}
+
+.ex-info p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.ex-info p:last-child {
+    margin-bottom: 0;
+}
+
+.ex-track {
+    display: flex;
+    flex-direction: column;
+}
+
+.ex-track p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.ex-track p:last-child {
+    margin-bottom: 0rem;
+}
+
+.base-button {
+    color: var(--color-white);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.15));
+}
+
+.base-button:hover {
+    opacity: 0.9;
+}
+
+.base-button:disabled {
+    background-color: var(--color-gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.back-btn {
+    display: none;
+    background-color: var(--color-red);
+}
+
+.back-btn.workout-page {
+    display: block;
+    padding: 1rem 0.75rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.start-btn {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--color-blue);
+}
+
+.text-muted {
+    margin: 0;
+    color: var(--color-gray);
+    opacity: 0.75;
+}

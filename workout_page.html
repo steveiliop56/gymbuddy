@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/styles.css" />
+        <title>Gymbuddy - {{ .Name }}</title>
+    </head>
+    <body>
+        <h1 class="header">{{ .Name }}</h1>
+        <p class="subtitle">Select your exercise.</p>
+        {{ if gt (len .Exercises) 0 }}
+        <nav class="workout-page">
+            {{ range .Exercises }}
+            <a href="/exercise/{{ $.ID }}/{{ .ID }}" class="unstyled-link">
+                <div class="card workout-page">
+                    <div class="card-text">{{ .Name }}</div>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l14 0" />
+                        <path d="M15 16l4 -4" />
+                        <path d="M15 8l4 4" />
+                    </svg>
+                </div>
+            </a>
+            {{ end }}
+            <button
+                onclick="history.back()"
+                class="base-button back-btn workout-page"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l14 0" />
+                    <path d="M5 12l4 4" />
+                    <path d="M5 12l4 -4" />
+                </svg>
+                <div>Back</div>
+            </button>
+        </nav>
+        {{ else }}
+        <p class="text-muted">No exercises available, why don't you add one?</p>
+        {{ end }}
+    </body>
+</html>
