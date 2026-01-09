@@ -31,6 +31,7 @@ p {
 }
 
 a {
+    color: var(--link);
     text-decoration: none;
 }
 
@@ -58,6 +59,7 @@ header {
 }
 
 .header-title {
+    color: var(--text);
     font-size: 1.5rem;
     font-weight: 600;
 }
