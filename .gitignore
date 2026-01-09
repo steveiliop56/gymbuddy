@@ -1,2 +1,8 @@
 # config
-config.yml
+/config.yml
+
+# build out
+/gymbuddy
+
+# debug
+__debug_*

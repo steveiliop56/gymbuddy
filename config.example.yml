@@ -1,0 +1,22 @@
+# Server configuration
+port: 8080
+address: 0.0.0.0
+
+# Authentication credentials - not supported yet
+# auth:
+#    username: steve
+#    password: gymbuddy
+
+# Workout routines
+workouts:
+  - name: Push
+    exercises:
+      # Rest time in seconds
+      - name: Bench Press
+        sets: 3
+        reps: 8
+        rest: 40
+      - name: Dips
+        sets: 3
+        reps: 10
+        rest: 40

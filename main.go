@@ -30,7 +30,7 @@ func main() {
 	handler := slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelInfo})
 	logger := slog.New(handler)
 
-	configEnv := os.Getenv("CONFIG_PATH")
+	configEnv := os.Getenv("GYMBUDDY_CONFIG_PATH")
 	configFlag := flag.String("config-path", "config.yml", "Path to the configuration file.")
 
 	flag.Parse()
