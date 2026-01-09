@@ -4,39 +4,36 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/styles.css" />
-        <title>Gymbuddy - Workouts</title>
+        <title>GymBuddy</title>
     </head>
     <body>
-        <h1 class="header">Workouts</h1>
-        <p class="subtitle">Select your workout.</p>
-        {{ if gt (len .Workouts) 0 }}
-        <nav>
-            {{ range .Workouts }}
-            <a href="/workout/{{ .ID }}" class="unstyled-link">
-                <div class="card">
-                    <div class="card-text">{{ .Name }}</div>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M5 12l14 0" />
-                        <path d="M15 16l4 -4" />
-                        <path d="M15 8l4 4" />
-                    </svg>
-                </div>
-            </a>
+        <header class="header">
+            <h1 class="header-title">GymBuddy</h1>
+            <p class="header-subtitle">Your personal workout companion.</p>
+        </header>
+        <div class="content">
+            {{ if gt (len .Workouts) 0 }}
+            <h2 class="content-title">Workouts</h2>
+            <p class="content-subtitle">Select your workout.</p>
+            <nav>
+                {{ range .Workouts }}
+                <a href="/workout/{{ .ID }}">
+                    <div class="card card-link">
+                        <div class="card-text">{{ .Name }}</div>
+                    </div>
+                </a>
+                {{ end }}
+            </nav>
+            {{ else }}
+            <p class="content-subtitle content-text-center">
+                No workouts have been configured.
+            </p>
             {{ end }}
-        </nav>
-        {{ else }}
-        <p class="text-muted">No workouts available, why don't you add one?</p>
-        {{ end }}
+        </div>
+        <footer class="footer">
+            <p class="footer-text">
+                Make me better on <a class="footer-link">GitHub</a>.
+            </p>
+        </footer>
     </body>
 </html>

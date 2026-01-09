@@ -4,73 +4,132 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/styles.css" />
-        <title>Gymbuddy - {{ .Name }}</title>
+        <title>GymBuddy</title>
     </head>
     <script>
-        // we are doing some fun, weird stuff here
-        var sets = {{ .Sets }};
-        var curSet = 0;
-        var remSets = sets - curSet;
-        const restTime = {{ .Rest }}; // in seconds
+        // Constants received from the server-side template
+        const setsStr = "{{ .Sets }}";
+        const restTimeStr = "{{ .Rest }}";
+
+        // Define some templates too
+        const statusTextTmpl = (text, value) => {
+            return `${text}: <code class="code">${value}</code>`;
+        };
+
+        // Normalize to integers
+        var sets = parseInt(setsStr, 10);
+        const restTime = parseInt(restTimeStr, 10);
+
+        // And then normal js code
+        var currentSet = 1;
+        var remainingSets = sets + 1 - currentSet;
 
         document.addEventListener("DOMContentLoaded", () => {
-          curSetText = document.getElementById("cur-set");
-          remSetsText = document.getElementById("rem-sets");
-          startSetBtn = document.getElementById("start-btn");
-          goBackBtn = document.getElementById("back-btn");
+            currentSetText = document.getElementById("current-set");
+            remainingSetsText = document.getElementById("remaining-sets");
+            startSetBtn = document.getElementById("start-button");
 
-          curSet.textContent = `Current Set: ${curSet}`;
-          remSets.textContent = `Remaining Sets: ${sets}`;
+            currentSetText.innerHTML = statusTextTmpl(
+                "Current Set",
+                currentSet,
+            );
+            remainingSetsText.innerHTML = statusTextTmpl(
+                "Remaining Sets",
+                remainingSets,
+            );
+            startSetBtn.textContent = `Done with set ${currentSet}`;
+            startSetBtn.disabled = false;
 
-          startSetBtn.addEventListener("click", () => {
-              curSet += 1;
-              remSets = sets - curSet;
-              curSetText.textContent = `Current Set: ${curSet}`;
-              remSetsText.textContent = `Remaining Sets: ${remSets}`;
+            startSetBtn.addEventListener("click", () => {
+                currentSet += 1;
+                remainingSets = sets - currentSet + 1;
 
-              startSetBtn.disabled = true;
+                startSetBtn.disabled = true;
 
-              if (curSet == sets) {
-                  startSetBtn.textContent = "Workout complete!";
-                  goBackBtn.style.display = "block";
-                  return;
-              }
-
-              var tmpRestTime = restTime;
-              const timer = setInterval(() => {
-                tmpRestTime -= 1;
-                if (tmpRestTime <= 0) {
-                  clearInterval(timer);
-                  startSetBtn.disabled = false;
-                  startSetBtn.textContent = "Start next set";
-                  return
+                if (currentSet > sets) {
+                    startSetBtn.textContent = "Exercise complete!";
+                    return;
                 }
-                startSetBtn.textContent = `Next set in ${tmpRestTime}s`;
-              }, 1000);
-          });
+
+                currentSetText.innerHTML = statusTextTmpl(
+                    "Current Set",
+                    currentSet,
+                );
+
+                remainingSetsText.innerHTML = statusTextTmpl(
+                    "Remaining Sets",
+                    remainingSets - 1,
+                );
+
+                var repRestTime = restTime;
+
+                const time = setInterval(() => {
+                    repRestTime -= 1;
+                    if (repRestTime <= 0) {
+                        clearInterval(time);
+                        startSetBtn.disabled = false;
+                        startSetBtn.textContent = `Done with set ${currentSet}`;
+                        return;
+                    }
+                    startSetBtn.textContent = `Rest for ${repRestTime}s`;
+                }, 1000);
+            });
         });
     </script>
-    <body class="exercise-page">
-        <h1 class="header exercise-page">{{ .Name }}</h1>
-        <p class="subtitle exercise-page">Ready, set, go!</p>
-        <div class="separator exercise-page"></div>
-        <div class="ex-info">
-            <p>Sets: {{ .Sets }}</p>
-            <p>Repetitions: {{ .Reps }}</p>
-            <p>Rest Time: {{ .Rest }} seconds</p>
+    <body>
+        <header class="header">
+            <h1 class="header-title">GymBuddy</h1>
+            <p class="header-subtitle">Your personal workout companion.</p>
+        </header>
+        <div class="content">
+            <h2 class="content-title">Let's start</h2>
+            <p class="content-subtitle">
+                You have selected the
+                <code class="code">{{ .Name }}</code> exercise.
+            </p>
+            <div class="separator"></div>
+            <div class="exercise-details">
+                <p class="exercise-detail">
+                    Sets: <code class="code">{{ .Sets }}</code>
+                </p>
+                <p class="exercise-detail">
+                    Repetitions: <code class="code">{{ .Reps }}</code>
+                </p>
+                <p class="exercise-detail">
+                    Rest Time: <code class="code">{{ .Rest }}</code> seconds
+                </p>
+            </div>
+            <div class="separator"></div>
+            <div class="exercise-status">
+                <div class="exercise-status-text">
+                    <p id="current-set" class="exercise-detail">
+                        Current Set: <code class="code">Loading...</code>
+                    </p>
+                    <p id="remaining-sets" class="exercise-detail">
+                        Remaining Sets: <code class="code">Loading...</code>
+                    </p>
+                </div>
+                <div class="exercise-status-buttons">
+                    <button
+                        id="start-button"
+                        class="button button-primary"
+                        disabled
+                    >
+                        Loading...
+                    </button>
+                    <button
+                        onclick="history.back()"
+                        class="button button-danger"
+                    >
+                        Back
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="separator exercise-page"></div>
-        <div class="ex-track">
-            <p id="cur-set">Current set: 0</p>
-            <p id="rem-sets">Remaining sets: 0</p>
-            <button id="start-btn" class="base-button start-btn">Start</button>
-            <button
-                onclick="history.back()"
-                class="base-button back-btn"
-                id="back-btn"
-            >
-                Back
-            </button>
-        </div>
+        <footer class="footer">
+            <p class="footer-text">
+                Make me better on <a class="footer-link">GitHub</a>.
+            </p>
+        </footer>
     </body>
 </html>
