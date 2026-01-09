@@ -115,7 +115,7 @@ footer {
 .card {
     display: flex;
     padding: 1rem;
-    border: 2px solid rgba(var(--primary-rgb), 0.2);
+    border: 2px solid rgba(var(--primary-rgb), 0.6);
     border-radius: 0.25rem;
     margin-bottom: 0.5rem;
     justify-content: center;
@@ -126,13 +126,13 @@ footer {
 }
 
 .card-link:hover {
-    border: 2px solid rgba(var(--primary-rgb), 0.1);
+    border: 2px solid rgba(var(--primary-rgb), 0.4);
 }
 
 .card-text {
     font-size: 1rem;
     font-weight: 500;
-    opacity: 0.8;
+    opacity: 0.9;
     color: var(--text);
 }
 
@@ -142,8 +142,7 @@ footer {
     border-radius: 0.25rem;
     font-size: 1rem;
     font-weight: 500;
-    opacity: 0.8;
-    color: var(--text);
+    color: rgba(var(--text-rgb), 0.9);
     width: 100%;
     text-align: center;
     cursor: pointer;
@@ -160,19 +159,19 @@ footer {
 }
 
 .button-danger {
-    border: 2px solid rgba(var(--danger-rgb), 0.2);
+    border: 2px solid rgba(var(--danger-rgb), 0.6);
 }
 
 .button-danger:hover {
-    border: 2px solid rgba(var(--danger-rgb), 0.1);
+    border: 2px solid rgba(var(--danger-rgb), 0.4);
 }
 
 .button-primary {
-    border: 2px solid rgba(var(--primary-rgb), 0.2);
+    border: 2px solid rgba(var(--primary-rgb), 0.6);
 }
 
 .button-primary:hover {
-    border: 2px solid rgba(var(--primary-rgb), 0.1);
+    border: 2px solid rgba(var(--primary-rgb), 0.4);
 }
 
 .code {
